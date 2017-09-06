@@ -5,13 +5,14 @@ import { StackNavigator,TabNavigator,TabBarTop,TabBarBottom } from 'react-naviga
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import App from '../containers/App';
-import Detail from '../containers/Detail';
 import HomeView from '../page/HomeView';
 import MessView from '../page/MessView';
 import UserView from '../page/UserView';
 
+import { One, Two, Three, Four } from '../page/TopTabNavigator';
+
 const { StyleSheet,View,Text } = ReactNative;
+
 const headerOptions = {
     headerStyle: { backgroundColor: '#fff' },
     headerTitleStyle: { color: '#333', alignSelf: 'center' },
@@ -19,6 +20,7 @@ const headerOptions = {
     headerBackTitle: null,
     headerRight: <View style={{ width: 25 }}/>
 };
+
 const OPTION = {
     tabBarOptions: {
         activeTintColor: '#188eee',
@@ -46,6 +48,48 @@ const OPTION = {
     animationEnabled:false,
     backBehavior:"none",
 }
+const TOPOPTION = {
+    tabBarPosition:'top',
+    tabBarComponent:TabBarTop,
+    swipeEnabled:false,
+    animationEnabled:false,
+    lazy:true,
+    backBehavior:'none',
+    ...TabNavigator.Presets.AndroidTopTabs,
+    tabBarOptions: {
+        activeTintColor: '#188eee',
+        inactiveTintColor:'#000',
+        showIcon:false,
+        scrollEnabled:false,
+        showLabel:true,
+        indicatorStyle:{
+            height:2.5,
+            backgroundColor:"#5B9EE7",
+            padding:0,
+            margin:0,
+        },
+        labelStyle:{
+            padding:0,
+            margin:0,
+        },
+        tabStyle:{
+            padding:0,
+            margin:0,
+            height:50
+        },
+        style: {
+            height:50,
+            backgroundColor:'#fff'
+        },
+    }
+};
+export const ScrollTopTableView = TabNavigator({
+    One: { screen: One,navigationOptions:{tabBarLabel:"一"}},
+    Two: { screen: Two,navigationOptions:{tabBarLabel:"二"}},
+    Three: { screen: Three,navigationOptions:{tabBarLabel:"三"}},
+    Four: { screen: Four,navigationOptions:{tabBarLabel:"四"}},
+},TOPOPTION);
+
 const TabOptions = (tabBarTitle,iconname) => {
     const tabBarLabel = tabBarTitle;
     const headerTitleStyle = { alignSelf:'center',color:'#fff',fontSize:17,fontWeight:'500'};
@@ -65,8 +109,6 @@ const Main = TabNavigator({
 
 const Routers = StackNavigator({
     Main: { screen: Main },
-    App: { screen: App, navigationOptions: { ...headerOptions }},
-    Detail: { screen: Detail, navigationOptions: { ...headerOptions }},
 }, {
     headerMode: 'screen',
     transitionConfig: () => ({
